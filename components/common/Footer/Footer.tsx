@@ -1,8 +1,9 @@
 import s from "./Footer.module.css"
 
-const Footer = () => {
+const Footer: any = () => {
 
     return (
+        
         <footer className={s.footer}>
            <div className="container mx-auto px-6">
             <div className="mt-5 flex flex-col items-center">
