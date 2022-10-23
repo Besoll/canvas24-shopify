@@ -61,12 +61,13 @@ export const UIProvider: FC<Props> = ({children}: Props) => {
     const closeSidebar = () => dispatch({ type: "CLOSE_SIDEBAR" })
 
     const value = useMemo(() => {
+        
         return {
             ...state, // contains also >>> isSidebarOpen: state.isSidebarOpen
             openSidebar,
             closeSidebar
         }
-    }, [state.isSidebarOpen])
+    }, [state])
 
     return (
         <>
