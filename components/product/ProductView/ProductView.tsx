@@ -18,7 +18,7 @@ const ProductView: FC<Props> = ({ product }) => {
 
   return (
     <Container>
-      <div className={cn(s.root, 'fit')}>
+      <div className={cn(s.root, 'fit' )}>
         <div className={cn(s.productDisplay, 'fit', 'mb-5')}>
           <div className={s.nameBox}>
             <h1 className={s.name}>
