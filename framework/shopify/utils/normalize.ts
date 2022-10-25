@@ -31,7 +31,7 @@ const normalizeProductOption = ({
             if (displayName.match(/colou?r/gi)) {
                 output = {
                     ...output,
-                    hexColor: values 
+                    hexColor: value
                 }
             }
             return output
@@ -87,11 +87,11 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
         slug: handle.replace(/^\/+|\/+$/g, ""),
         images: normalizeProductImages(imageConnection),
         price: normalizeProductPrice(priceRange.minVariantPrice),
-        options: options ? 
-            options.filter(o => o.name !== "Title") 
-                   .map(o => normalizeProductOption(o)) : [],
-        variants: variants ? 
-            normalizeProductVariants(variants) : [],
+        options: options ?
+        options.filter(o => o.name !== "Title")
+                .map(o => normalizeProductOption(o)) : [],
+        variants: variants ?
+        normalizeProductVariants(variants) : [],
         ...rest
     }
 
