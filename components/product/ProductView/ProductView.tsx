@@ -6,23 +6,37 @@ import { Container, Button } from '@components/ui'
 import Image from "next/image"
 import { Product } from '@common/types/product'
 import { ProductSlider, Swatch } from "@components/product"
+import { Choices, getVariant } from '../helpers'
+import { useUI } from '@components/ui/context'
+import useAddItem from "@framework/cart/use-add-item"
+import { useApiProvider } from '@common'
+
 
 
 interface Props {
   product: Product
 }
 
-type AvailableChoices = "color" | "size" | string
-
-type Choices = {
-    [P in AvailableChoices]: string
-}
-
 const ProductView: FC<Props> = ({ product }) => {
-
     const [ choices, setChoices ] = useState<Choices>({})
+    const { hooks, fetcher } = useApiProvider()
+    
+    const { openSidebar } = useUI()
+    const addItem = useAddItem()
 
-    console.log(choices)
+    const variant = getVariant(product, choices)
+    const addToCart = () => {
+      try {
+        const item = {
+          productId: String(product.id),
+          variantId: variant?.id,
+          variantOptions: variant?.options
+        }
+        addItem(item)
+        openSidebar()
+      } catch {}
+    }
+    
   return (
     <Container>
       <div className={cn(s.root, 'fit' )}>
@@ -59,11 +73,7 @@ const ProductView: FC<Props> = ({ product }) => {
                     <h2 className="uppercase font-medium">{option.displayName}</h2>
                     <div className="flex flex-row py-4">
                         { option.values.map(optValue => {
-
                           const activeChoices = choices[option.displayName.toLowerCase()]
-
-                          console.log(activeChoices)
-
                           return (
                             <Swatch 
                               key={`${option.id}-${optValue.label}`}
@@ -94,7 +104,7 @@ const ProductView: FC<Props> = ({ product }) => {
           <div>
             <Button
                 className={s.button}
-                onClick={() => alert("Click on add basket")}
+                onClick={addToCart}
             >
                 Add to Cart
             </Button>

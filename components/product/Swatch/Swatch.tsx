@@ -27,7 +27,8 @@ const Swatch: FC<Props> = ({
         { 
             [s.active]: active,
             [s.color]: color,
-            [s.size]: variant === "size"
+            [s.size]: variant === "size",
+            [s.dark]: color && isDark(color)
         }
     )
 
